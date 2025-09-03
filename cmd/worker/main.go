@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"mkp-boarding-test/internal/config"
+	"mkp-boarding-test/pkg/config"
 	"mkp-boarding-test/internal/delivery/messaging"
 	"os"
 	"os/signal"

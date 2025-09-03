@@ -1,7 +1,7 @@
 package converter
 
 import (
-	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/domain/entity"
 	"mkp-boarding-test/internal/model"
 )
 

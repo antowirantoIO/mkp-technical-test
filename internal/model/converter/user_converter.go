@@ -1,12 +1,12 @@
 package converter
 
 import (
-	"mkp-boarding-test/internal/entity"
-	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/delivery/http/dto/response"
+	"mkp-boarding-test/internal/domain/entity"
 )
 
-func UserToResponse(user *entity.User) *model.UserResponse {
-	return &model.UserResponse{
+func UserToResponse(user *entity.User) *response.UserResponse {
+	return &response.UserResponse{
 		ID:                user.ID,
 		Username:          user.Username,
 		Email:             user.Email,

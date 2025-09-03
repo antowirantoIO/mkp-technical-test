@@ -1,7 +1,7 @@
 package test
 
 import (
-	"mkp-boarding-test/internal/config"
+	"mkp-boarding-test/pkg/config"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"

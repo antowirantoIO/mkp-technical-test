@@ -24,7 +24,7 @@ package main
 import (
 	"fmt"
 	_ "mkp-boarding-test/docs"
-	"mkp-boarding-test/internal/config"
+	"mkp-boarding-test/pkg/config"
 )
 
 func main() {
