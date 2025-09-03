@@ -2,11 +2,14 @@ package usecase
 
 import (
 	"context"
+	"time"
+
 	"mkp-boarding-test/internal/entity"
 	"mkp-boarding-test/internal/gateway/messaging"
 	"mkp-boarding-test/internal/model"
 	"mkp-boarding-test/internal/model/converter"
 	"mkp-boarding-test/internal/repository"
+	"mkp-boarding-test/internal/service"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -22,16 +25,18 @@ type UserUseCase struct {
 	Validate       *validator.Validate
 	UserRepository *repository.UserRepository
 	UserProducer   *messaging.UserProducer
+	JWTService     service.JWTService
 }
 
 func NewUserUseCase(db *gorm.DB, logger *logrus.Logger, validate *validator.Validate,
-	userRepository *repository.UserRepository, userProducer *messaging.UserProducer) *UserUseCase {
+	userRepository *repository.UserRepository, userProducer *messaging.UserProducer, jwtService service.JWTService) *UserUseCase {
 	return &UserUseCase{
 		DB:             db,
 		Log:            logger,
 		Validate:       validate,
 		UserRepository: userRepository,
 		UserProducer:   userProducer,
+		JWTService:     jwtService,
 	}
 }
 
@@ -135,14 +140,40 @@ func (c *UserUseCase) Login(ctx context.Context, request *model.LoginUserRequest
 		return nil, fiber.ErrUnauthorized
 	}
 
+	// Generate JWT tokens
+	token, err := c.JWTService.GenerateToken(user)
+	if err != nil {
+		c.Log.WithError(err).Error("failed to generate JWT token")
+		return nil, fiber.ErrInternalServerError
+	}
+
+	refreshToken, err := c.JWTService.GenerateRefreshToken(user)
+	if err != nil {
+		c.Log.WithError(err).Error("failed to generate refresh token")
+		return nil, fiber.ErrInternalServerError
+	}
+
+	// Update user with tokens
+	now := time.Now()
+	tokenExpiresAt := now.Add(24 * time.Hour).Unix() // Token expires in 24 hours
+	refreshExpiresAt := now.Add(7 * 24 * time.Hour).Unix() // Refresh token expires in 7 days
+	user.Token = &token
+	user.TokenExpiresAt = &tokenExpiresAt
+	user.RefreshToken = &refreshToken
+	user.RefreshExpiresAt = &refreshExpiresAt
+
+	if err := c.UserRepository.Update(tx, user); err != nil {
+		c.Log.WithError(err).Error("failed to update user with tokens")
+		return nil, fiber.ErrInternalServerError
+	}
+
 	if err := tx.Commit().Error; err != nil {
 		c.Log.WithError(err).Error("failed to commit transaction")
 		return nil, fiber.ErrInternalServerError
 	}
 
 	response := converter.UserToResponse(user)
-	// Generate token for response (this would typically be a JWT)
-	response.Token = uuid.NewString()
+	response.Token = token
 
 	return response, nil
 }
@@ -183,6 +214,17 @@ func (c *UserUseCase) Logout(ctx context.Context, request *model.LogoutUserReque
 	if err := c.UserRepository.FindById(tx, user, request.ID); err != nil {
 		c.Log.Warnf("Failed find user by id : %+v", err)
 		return false, fiber.ErrNotFound
+	}
+
+	// Clear tokens from database
+	user.Token = nil
+	user.TokenExpiresAt = nil
+	user.RefreshToken = nil
+	user.RefreshExpiresAt = nil
+
+	if err := c.UserRepository.Update(tx, user); err != nil {
+		c.Log.WithError(err).Error("failed to clear user tokens")
+		return false, fiber.ErrInternalServerError
 	}
 
 	if err := tx.Commit().Error; err != nil {

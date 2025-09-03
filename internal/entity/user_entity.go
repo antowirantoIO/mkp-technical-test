@@ -15,6 +15,10 @@ type User struct {
 	LastLoginAt       *int64  `gorm:"column:last_login_at"`
 	EmailVerifiedAt   *int64  `gorm:"column:email_verified_at"`
 	PasswordChangedAt *int64  `gorm:"column:password_changed_at"`
+	Token             *string `gorm:"column:token"`
+	TokenExpiresAt    *int64  `gorm:"column:token_expires_at"`
+	RefreshToken      *string `gorm:"column:refresh_token"`
+	RefreshExpiresAt  *int64  `gorm:"column:refresh_expires_at"`
 	CreatedAt         int64   `gorm:"column:created_at;autoCreateTime:milli"`
 	UpdatedAt         int64   `gorm:"column:updated_at;autoCreateTime:milli;autoUpdateTime:milli"`
 	DeletedAt         *int64  `gorm:"column:deleted_at"`
