@@ -2,11 +2,11 @@ package usecase
 
 import (
 	"context"
-	"golang-clean-architecture/internal/entity"
-	"golang-clean-architecture/internal/gateway/messaging"
-	"golang-clean-architecture/internal/model"
-	"golang-clean-architecture/internal/model/converter"
-	"golang-clean-architecture/internal/repository"
+	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/gateway/messaging"
+	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/model/converter"
+	"mkp-boarding-test/internal/repository"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -91,14 +91,14 @@ func (c *UserUseCase) Create(ctx context.Context, request *model.RegisterUserReq
 	}
 
 	user := &entity.User{
-		ID:        uuid.NewString(),
-		Username:  request.Username,
-		Email:     request.Email,
-		Password:  string(password),
-		FirstName: firstName,
-		LastName:  lastName,
-		Phone:     request.Phone,
-		IsActive:  true,
+		ID:         uuid.NewString(),
+		Username:   request.Username,
+		Email:      request.Email,
+		Password:   string(password),
+		FirstName:  firstName,
+		LastName:   lastName,
+		Phone:      request.Phone,
+		IsActive:   true,
 		IsVerified: false,
 	}
 

@@ -1,8 +1,8 @@
 package converter
 
 import (
-	"golang-clean-architecture/internal/entity"
-	"golang-clean-architecture/internal/model"
+	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/model"
 )
 
 func HarborToResponse(harbor *entity.Harbor) *model.HarborResponse {
@@ -52,35 +52,35 @@ func HarborToResponse(harbor *entity.Harbor) *model.HarborResponse {
 	}
 
 	return &model.HarborResponse{
-		ID:                    harbor.ID,
-		HarborCode:            harbor.HarborCode,
-		HarborName:            harbor.HarborName,
-		UNLocode:              unLocode,
-		Country:               harbor.Country,
-		Province:              harbor.Province,
-		City:                  harbor.City,
-		Latitude:              latitude,
-		Longitude:             longitude,
-		TimeZone:              timezone,
-		MaxShipLength:         harbor.MaxShipLength,
-		MaxShipBeam:           harbor.MaxShipBeam,
-		MaxShipDraft:          harbor.MaxShipDraft,
-		BerthCount:            berthCount,
-		StorageCapacity:       harbor.StorageCapacity,
-		ContactPerson:         contactPerson,
-		ContactPhone:          contactPhone,
-		ContactEmail:          contactEmail,
-		Website:               harbor.Website,
-		OperatingHours:        operatingHours,
-		HasPilotage:           harbor.HasPilotage,
-		HasTugService:         harbor.HasTugService,
-		HasQuarantine:         harbor.HasQuarantine,
-		HasCustoms:            harbor.HasCustoms,
-		HasRepair:             harbor.HasRepairService,
-		HasWaste:              harbor.HasWaste,
-		IsActive:              harbor.IsActive,
-		Notes:                 harbor.Notes,
-		CreatedAt:             harbor.CreatedAt,
-		UpdatedAt:             harbor.UpdatedAt,
+		ID:              harbor.ID,
+		HarborCode:      harbor.HarborCode,
+		HarborName:      harbor.HarborName,
+		UNLocode:        unLocode,
+		Country:         harbor.Country,
+		Province:        harbor.Province,
+		City:            harbor.City,
+		Latitude:        latitude,
+		Longitude:       longitude,
+		TimeZone:        timezone,
+		MaxShipLength:   harbor.MaxShipLength,
+		MaxShipBeam:     harbor.MaxShipBeam,
+		MaxShipDraft:    harbor.MaxShipDraft,
+		BerthCount:      berthCount,
+		StorageCapacity: harbor.StorageCapacity,
+		ContactPerson:   contactPerson,
+		ContactPhone:    contactPhone,
+		ContactEmail:    contactEmail,
+		Website:         harbor.Website,
+		OperatingHours:  operatingHours,
+		HasPilotage:     harbor.HasPilotage,
+		HasTugService:   harbor.HasTugService,
+		HasQuarantine:   harbor.HasQuarantine,
+		HasCustoms:      harbor.HasCustoms,
+		HasRepair:       harbor.HasRepairService,
+		HasWaste:        harbor.HasWaste,
+		IsActive:        harbor.IsActive,
+		Notes:           harbor.Notes,
+		CreatedAt:       harbor.CreatedAt,
+		UpdatedAt:       harbor.UpdatedAt,
 	}
 }

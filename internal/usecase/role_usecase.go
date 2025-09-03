@@ -2,10 +2,10 @@ package usecase
 
 import (
 	"context"
-	"golang-clean-architecture/internal/entity"
-	"golang-clean-architecture/internal/model"
-	"golang-clean-architecture/internal/model/converter"
-	"golang-clean-architecture/internal/repository"
+	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/model/converter"
+	"mkp-boarding-test/internal/repository"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -15,11 +15,11 @@ import (
 )
 
 type RoleUseCase struct {
-	DB                     *gorm.DB
-	Log                    *logrus.Logger
-	Validate               *validator.Validate
-	RoleRepository         *repository.RoleRepository
-	PermissionRepository   *repository.PermissionRepository
+	DB                       *gorm.DB
+	Log                      *logrus.Logger
+	Validate                 *validator.Validate
+	RoleRepository           *repository.RoleRepository
+	PermissionRepository     *repository.PermissionRepository
 	RolePermissionRepository *repository.RolePermissionRepository
 }
 
@@ -27,11 +27,11 @@ func NewRoleUseCase(db *gorm.DB, logger *logrus.Logger, validate *validator.Vali
 	roleRepository *repository.RoleRepository, permissionRepository *repository.PermissionRepository,
 	rolePermissionRepository *repository.RolePermissionRepository) *RoleUseCase {
 	return &RoleUseCase{
-		DB:                     db,
-		Log:                    logger,
-		Validate:               validate,
-		RoleRepository:         roleRepository,
-		PermissionRepository:   permissionRepository,
+		DB:                       db,
+		Log:                      logger,
+		Validate:                 validate,
+		RoleRepository:           roleRepository,
+		PermissionRepository:     permissionRepository,
 		RolePermissionRepository: rolePermissionRepository,
 	}
 }
@@ -210,17 +210,17 @@ func (c *RoleUseCase) List(ctx context.Context, request *model.ListRoleRequest) 
 	}
 
 	query := tx.Model(&entity.Role{}).Where("deleted_at IS NULL")
-	
+
 	if request.IsActive != nil {
 		query = query.Where("is_active = ?", *request.IsActive)
 	}
 	if request.Name != nil && *request.Name != "" {
 		query = query.Where("name ILIKE ?", "%"+*request.Name+"%")
 	}
-	
+
 	offset := (request.Page - 1) * request.Size
 	query = query.Offset(offset).Limit(request.Size)
-	
+
 	var roles []entity.Role
 	if err := query.Find(&roles).Error; err != nil {
 		c.Log.WithError(err).Error("failed to find roles")

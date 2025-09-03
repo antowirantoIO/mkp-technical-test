@@ -23,8 +23,8 @@ package main
 
 import (
 	"fmt"
-	"golang-clean-architecture/internal/config"
-	_ "golang-clean-architecture/docs"
+	_ "mkp-boarding-test/docs"
+	"mkp-boarding-test/internal/config"
 )
 
 func main() {

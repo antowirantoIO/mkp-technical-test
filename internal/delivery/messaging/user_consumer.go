@@ -2,7 +2,7 @@ package messaging
 
 import (
 	"encoding/json"
-	"golang-clean-architecture/internal/model"
+	"mkp-boarding-test/internal/model"
 
 	"github.com/IBM/sarama"
 	"github.com/sirupsen/logrus"

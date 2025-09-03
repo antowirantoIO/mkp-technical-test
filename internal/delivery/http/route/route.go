@@ -1,8 +1,8 @@
 package route
 
 import (
-	"golang-clean-architecture/docs"
-	"golang-clean-architecture/internal/delivery/http"
+	"mkp-boarding-test/docs"
+	"mkp-boarding-test/internal/delivery/http"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
@@ -11,8 +11,6 @@ import (
 type RouteConfig struct {
 	App                  *fiber.App
 	UserController       *http.UserController
-	ContactController    *http.ContactController
-	AddressController    *http.AddressController
 	RoleController       *http.RoleController
 	PermissionController *http.PermissionController
 	OperatorController   *http.OperatorController
@@ -30,7 +28,7 @@ func (c *RouteConfig) Setup() {
 func (c *RouteConfig) SetupSwaggerRoute() {
 	// Initialize swagger docs
 	_ = docs.SwaggerInfo
-	
+
 	// Swagger documentation route
 	c.App.Get("/swagger/*", swagger.HandlerDefault)
 }
@@ -42,25 +40,13 @@ func (c *RouteConfig) SetupGuestRoute() {
 
 func (c *RouteConfig) SetupAuthRoute() {
 	c.App.Use(c.AuthMiddleware)
-	
+
 	// User routes
 	c.App.Delete("/api/users", c.UserController.Logout)
 	c.App.Patch("/api/users/_current", c.UserController.Update)
 	c.App.Get("/api/users/_current", c.UserController.Current)
 
-	// Contact routes
-	c.App.Get("/api/contacts", c.ContactController.List)
-	c.App.Post("/api/contacts", c.ContactController.Create)
-	c.App.Put("/api/contacts/:contactId", c.ContactController.Update)
-	c.App.Get("/api/contacts/:contactId", c.ContactController.Get)
-	c.App.Delete("/api/contacts/:contactId", c.ContactController.Delete)
 
-	// Address routes
-	c.App.Get("/api/contacts/:contactId/addresses", c.AddressController.List)
-	c.App.Post("/api/contacts/:contactId/addresses", c.AddressController.Create)
-	c.App.Put("/api/contacts/:contactId/addresses/:addressId", c.AddressController.Update)
-	c.App.Get("/api/contacts/:contactId/addresses/:addressId", c.AddressController.Get)
-	c.App.Delete("/api/contacts/:contactId/addresses/:addressId", c.AddressController.Delete)
 
 	// Role routes
 	c.App.Get("/api/roles", c.RoleController.List)

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "golang-clean-architecture"
+    "name": "mkp-boarding-test"
   },
   "web": {
     "prefork": false,
@@ -26,7 +26,7 @@
       "servers": "localhost:9092"
     },
     "group": {
-      "id": "golang-clean-architecture"
+      "id": "mkp-boarding-test"
     },
     "auto": {
       "offset": {

@@ -146,19 +146,6 @@ Authorization: Bearer <your-jwt-token>
 - `POST /api/roles/{id}/permissions` - Assign permissions
 - `DELETE /api/roles/{id}/permissions` - Remove permissions
 
-#### Contact Management
-- `GET /api/contacts` - List contacts
-- `POST /api/contacts` - Create contact
-- `GET /api/contacts/{id}` - Get contact
-- `PUT /api/contacts/{id}` - Update contact
-- `DELETE /api/contacts/{id}` - Delete contact
-
-#### Address Management
-- `GET /api/contacts/{contactId}/addresses` - List addresses
-- `POST /api/contacts/{contactId}/addresses` - Create address
-- `GET /api/contacts/{contactId}/addresses/{id}` - Get address
-- `PUT /api/contacts/{contactId}/addresses/{id}` - Update address
-- `DELETE /api/contacts/{contactId}/addresses/{id}` - Delete address
 
 #### Operator Management
 - `GET /api/operators` - List operators

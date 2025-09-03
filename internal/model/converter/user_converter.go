@@ -1,8 +1,8 @@
 package converter
 
 import (
-	"golang-clean-architecture/internal/entity"
-	"golang-clean-architecture/internal/model"
+	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/model"
 )
 
 func UserToResponse(user *entity.User) *model.UserResponse {

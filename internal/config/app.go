@@ -1,12 +1,12 @@
 package config
 
 import (
-	"golang-clean-architecture/internal/delivery/http"
-	"golang-clean-architecture/internal/delivery/http/middleware"
-	"golang-clean-architecture/internal/delivery/http/route"
-	"golang-clean-architecture/internal/gateway/messaging"
-	"golang-clean-architecture/internal/repository"
-	"golang-clean-architecture/internal/usecase"
+	"mkp-boarding-test/internal/delivery/http"
+	"mkp-boarding-test/internal/delivery/http/middleware"
+	"mkp-boarding-test/internal/delivery/http/route"
+	"mkp-boarding-test/internal/gateway/messaging"
+	"mkp-boarding-test/internal/repository"
+	"mkp-boarding-test/internal/usecase"
 
 	"github.com/IBM/sarama"
 	"github.com/go-playground/validator/v10"
@@ -28,8 +28,6 @@ type BootstrapConfig struct {
 func Bootstrap(config *BootstrapConfig) {
 	// setup repositories
 	userRepository := repository.NewUserRepository(config.Log)
-	contactRepository := repository.NewContactRepository(config.Log)
-	addressRepository := repository.NewAddressRepository(config.Log)
 	roleRepository := repository.NewRoleRepository(config.Log)
 	permissionRepository := repository.NewPermissionRepository(config.Log)
 	rolePermissionRepository := repository.NewRolePermissionRepository(config.Log)
@@ -39,19 +37,13 @@ func Bootstrap(config *BootstrapConfig) {
 
 	// setup producer
 	var userProducer *messaging.UserProducer
-	var contactProducer *messaging.ContactProducer
-	var addressProducer *messaging.AddressProducer
 
 	if config.Producer != nil {
 		userProducer = messaging.NewUserProducer(config.Producer, config.Log)
-		contactProducer = messaging.NewContactProducer(config.Producer, config.Log)
-		addressProducer = messaging.NewAddressProducer(config.Producer, config.Log)
 	}
 
 	// setup use cases
 	userUseCase := usecase.NewUserUseCase(config.DB, config.Log, config.Validate, userRepository, userProducer)
-	contactUseCase := usecase.NewContactUseCase(config.DB, config.Log, config.Validate, contactRepository, contactProducer)
-	addressUseCase := usecase.NewAddressUseCase(config.DB, config.Log, config.Validate, contactRepository, addressRepository, addressProducer)
 	roleUseCase := usecase.NewRoleUseCase(config.DB, config.Log, config.Validate, roleRepository, permissionRepository, rolePermissionRepository)
 	permissionUseCase := usecase.NewPermissionUseCase(config.DB, config.Log, config.Validate, permissionRepository, rolePermissionRepository)
 	operatorUseCase := usecase.NewOperatorUseCase(config.DB, config.Log, config.Validate, operatorRepository)
@@ -60,8 +52,6 @@ func Bootstrap(config *BootstrapConfig) {
 
 	// setup controller
 	userController := http.NewUserController(userUseCase, config.Log)
-	contactController := http.NewContactController(contactUseCase, config.Log)
-	addressController := http.NewAddressController(addressUseCase, config.Log)
 	roleController := http.NewRoleController(roleUseCase, config.Log)
 	permissionController := http.NewPermissionController(permissionUseCase, config.Log)
 	operatorController := http.NewOperatorController(operatorUseCase, config.Log)
@@ -74,8 +64,6 @@ func Bootstrap(config *BootstrapConfig) {
 	routeConfig := route.RouteConfig{
 		App:                  config.App,
 		UserController:       userController,
-		ContactController:    contactController,
-		AddressController:    addressController,
 		RoleController:       roleController,
 		PermissionController: permissionController,
 		OperatorController:   operatorController,

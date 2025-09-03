@@ -4,7 +4,7 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: golang-clean-architecture-postgres
+    container_name: mkp-boarding-test-postgres
     environment:
       POSTGRES_DB: golang_clean_architecture
       POSTGRES_USER: postgres
@@ -27,7 +27,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: golang-clean-architecture-app
+    container_name: mkp-boarding-test-app
     ports:
       - "3000:3000"
     depends_on:

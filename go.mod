@@ -1,4 +1,4 @@
-module golang-clean-architecture
+module mkp-boarding-test
 
 go 1.25
 

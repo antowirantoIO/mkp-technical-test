@@ -2,10 +2,10 @@ package usecase
 
 import (
 	"context"
-	"golang-clean-architecture/internal/converter"
-	"golang-clean-architecture/internal/entity"
-	"golang-clean-architecture/internal/model"
-	"golang-clean-architecture/internal/repository"
+	"mkp-boarding-test/internal/converter"
+	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/repository"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -15,17 +15,17 @@ import (
 )
 
 type HarborUseCase struct {
-	DB              *gorm.DB
-	Log             *logrus.Logger
-	Validate        *validator.Validate
+	DB               *gorm.DB
+	Log              *logrus.Logger
+	Validate         *validator.Validate
 	HarborRepository *repository.HarborRepository
 }
 
 func NewHarborUseCase(db *gorm.DB, log *logrus.Logger, validate *validator.Validate, harborRepository *repository.HarborRepository) *HarborUseCase {
 	return &HarborUseCase{
-		DB:              db,
-		Log:             log,
-		Validate:        validate,
+		DB:               db,
+		Log:              log,
+		Validate:         validate,
 		HarborRepository: harborRepository,
 	}
 }

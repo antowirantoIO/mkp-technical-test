@@ -1,8 +1,8 @@
 package http
 
 import (
-	"golang-clean-architecture/internal/model"
-	"golang-clean-architecture/internal/usecase"
+	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/usecase"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/sirupsen/logrus"

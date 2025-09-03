@@ -2,10 +2,10 @@ package usecase
 
 import (
 	"context"
-	"golang-clean-architecture/internal/entity"
-	"golang-clean-architecture/internal/model"
-	"golang-clean-architecture/internal/model/converter"
-	"golang-clean-architecture/internal/repository"
+	"mkp-boarding-test/internal/entity"
+	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/model/converter"
+	"mkp-boarding-test/internal/repository"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"

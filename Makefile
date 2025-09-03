@@ -1,5 +1,5 @@
 # Variables
-APP_NAME=golang-clean-architecture
+APP_NAME=mkp-boarding-test
 DOCKER_COMPOSE=docker-compose
 GO=go
 MIGRATE=migrate
