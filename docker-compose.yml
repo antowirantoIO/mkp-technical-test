@@ -6,7 +6,7 @@ services:
     image: postgres:15-alpine
     container_name: mkp-boarding-test-postgres
     environment:
-      POSTGRES_DB: golang_clean_architecture
+      POSTGRES_DB: mkp_technicaltest
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -38,7 +38,7 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=golang_clean_architecture
+      - DATABASE_NAME=mkp_technicaltest
     volumes:
       - ./config.json:/root/config.json
     networks:

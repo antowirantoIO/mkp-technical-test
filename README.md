@@ -1,7 +1,5 @@
 # MKP Boarding Test - Maritime Management System
 
-A production-ready REST API built with Go using Clean Architecture principles for maritime operations management, featuring comprehensive ship, harbor, and operator management with role-based access control.
-
 ## 🚀 Features
 
 - **Clean Architecture**: Separation of concerns with clear dependency boundaries
@@ -23,29 +21,6 @@ A production-ready REST API built with Go using Clean Architecture principles fo
 - **Ships**: Comprehensive ship registry with technical specifications and tracking
 - **Harbors**: Harbor information system with facilities and operational details
 
-## 🏗️ Architecture
-
-```
-cmd/
-├── web/           # HTTP server entry point
-└── worker/        # Background worker entry point
-
-internal/
-├── config/        # Configuration and dependency injection
-├── delivery/      # Delivery layer (HTTP handlers, middleware)
-├── entity/        # Domain entities
-├── gateway/       # External service gateways
-├── model/         # DTOs and request/response models
-├── repository/    # Data access layer
-└── usecase/       # Business logic layer
-
-db/
-└── migrations/    # Database migration files
-
-docs/              # Swagger documentation
-test/              # Test files
-```
-
 ## 🛠️ Prerequisites
 
 - Go 1.21 or higher
@@ -59,7 +34,7 @@ test/              # Test files
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:antowirantoIO/mkp-technical-test.git
    cd mkp-boarding-test
    ```
 
@@ -76,7 +51,6 @@ test/              # Test files
 4. **Access the application**
    - API: http://localhost:3000
    - Swagger UI: http://localhost:3000/swagger/
-   - Database Admin (Adminer): http://localhost:8080
 
 ### Manual Setup
 
@@ -87,7 +61,7 @@ test/              # Test files
 
 2. **Setup PostgreSQL database**
    ```bash
-   createdb golang_clean_architecture
+   createdb mkp_technicaltest
    ```
 
 3. **Configure environment**
@@ -99,7 +73,7 @@ test/              # Test files
        "port": 5432,
        "username": "postgres",
        "password": "postgres",
-       "name": "golang_clean_architecture"
+       "name": "mkp_technicaltest"
      }
    }
    ```
@@ -322,19 +296,6 @@ make lint             # Run linter
 4. **Delivery Layer**: HTTP handlers, middleware, and routing
 5. **Gateway Layer**: External service integrations
 
-### Adding New Features
-
-1. Define entity in `internal/entity/` with proper GORM tags
-2. Create repository interface and implementation in `internal/repository/`
-3. Implement use case with business logic in `internal/usecase/`
-4. Create request/response DTOs in `internal/model/` with validation tags
-5. Add HTTP controller in `internal/delivery/http/` with Swagger annotations
-6. Register routes in `internal/delivery/http/route/`
-7. Add to dependency injection in `internal/config/app.go`
-8. Create database migration files in `db/migrations/`
-9. Update Swagger documentation with `make swagger-gen`
-10. Write comprehensive tests
-
 ## 🐳 Docker Services
 
 - **app**: Main Go application (port 3000)
@@ -361,40 +322,16 @@ make lint             # Run linter
 ## 🌊 Maritime Domain Features
 
 ### Ship Management
-- Complete vessel registry with IMO numbers, call signs, and MMSI
-- Technical specifications (length, beam, draft, tonnage)
-- Ship type classification (container, bulk, tanker, etc.)
-- Flag state and port of registry tracking
-- Operational status monitoring
-- Position tracking capabilities
-- Inspection and certification management
 
 ### Harbor Operations
-- Comprehensive harbor information system
-- UN/LOCODE standardized location codes
-- Facility capabilities (pilotage, customs, quarantine)
-- Cargo handling specifications (container, bulk, liquid)
-- Berth and storage capacity management
-- Geographic coordinates and timezone information
-- Operating hours and contact details
 
 ### Operator Management
-- Maritime company registration and profiles
-- Operator type classification (shipping lines, port operators, etc.)
-- Business registration and compliance tracking
-- Contact information and website management
-- Geographic presence tracking
 
 ## 🚀 Deployment
 
 ### Production Build
 ```bash
 make prod-build
-```
-
-### Docker Production
-```bash
-docker-compose -f docker-compose.prod.yml up -d
 ```
 
 ## 🤝 Contributing
@@ -427,7 +364,7 @@ This project is licensed under the Apache 2.0 License - see the LICENSE file for
 
 For support and questions:
 - Create an issue in the repository
-- Review the Swagger documentation at `/swagger/`
+- Review the Swagger documentation at `/docs/`
 - Check the logs for detailed error information
 
 ---

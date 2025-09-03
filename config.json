@@ -14,7 +14,7 @@
     "password": "postgres",
     "host": "127.0.0.1",
     "port": 5432,
-    "name": "golang_clean_architecture",
+    "name": "mkp_technicaltest",
     "pool": {
       "idle": 10,
       "max": 100,
