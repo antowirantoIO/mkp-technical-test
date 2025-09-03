@@ -6,7 +6,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a sample server for Golang Clean Architecture.",
-        "title": "Golang Clean Architecture API",
+        "title": "MKP Boarding Test API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
@@ -20,8 +20,2971 @@
         "version": "1.0"
     },
     "host": "localhost:3000",
-    "basePath": "/api",
-    "paths": {},
+    "basePath": "/",
+    "paths": {
+        "/api/harbors": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get list of harbors with optional filtering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Harbors"
+                ],
+                "summary": "List harbors",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by harbor name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by country",
+                        "name": "country",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by province",
+                        "name": "province",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by city",
+                        "name": "city",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Filter by active status",
+                        "name": "is_active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of harbors",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerPageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new harbor with detailed information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Harbors"
+                ],
+                "summary": "Create a new harbor",
+                "parameters": [
+                    {
+                        "description": "Create harbor request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateHarborRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Harbor created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/harbors/{harborId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get harbor details by harbor ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Harbors"
+                ],
+                "summary": "Get harbor by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Harbor ID",
+                        "name": "harborId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Harbor details",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Harbor not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update harbor information by harbor ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Harbors"
+                ],
+                "summary": "Update harbor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Harbor ID",
+                        "name": "harborId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update harbor request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateHarborRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Harbor updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Harbor not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete harbor by harbor ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Harbors"
+                ],
+                "summary": "Delete harbor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Harbor ID",
+                        "name": "harborId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Harbor deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Harbor not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/operators": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get list of operators with optional filtering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operators"
+                ],
+                "summary": "List operators",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by company name",
+                        "name": "company_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by operator type",
+                        "name": "operator_type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by status",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by country",
+                        "name": "country",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by province",
+                        "name": "province",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by city",
+                        "name": "city",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Filter by active status",
+                        "name": "is_active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of operators",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerPageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new operator with company information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operators"
+                ],
+                "summary": "Create a new operator",
+                "parameters": [
+                    {
+                        "description": "Create operator request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateOperatorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operator created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/operators/{operatorId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get operator details by operator ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operators"
+                ],
+                "summary": "Get operator by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Operator ID",
+                        "name": "operatorId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operator details",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Operator not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update operator information by operator ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operators"
+                ],
+                "summary": "Update operator",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Operator ID",
+                        "name": "operatorId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update operator request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateOperatorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operator updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Operator not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete operator by operator ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operators"
+                ],
+                "summary": "Delete operator",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Operator ID",
+                        "name": "operatorId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operator deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Operator not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/permissions": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get list of permissions with optional filtering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Permissions"
+                ],
+                "summary": "List permissions",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by permission name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by resource",
+                        "name": "resource",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by action",
+                        "name": "action",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Filter by active status",
+                        "name": "is_active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of permissions",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerPageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new permission with name, resource, and action",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Permissions"
+                ],
+                "summary": "Create a new permission",
+                "parameters": [
+                    {
+                        "description": "Create permission request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreatePermissionRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permission created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/permissions/{permissionId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get permission details by permission ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Permissions"
+                ],
+                "summary": "Get permission by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Permission ID",
+                        "name": "permissionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permission details",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Permission not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update permission information by permission ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Permissions"
+                ],
+                "summary": "Update permission",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Permission ID",
+                        "name": "permissionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update permission request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdatePermissionRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permission updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Permission not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete permission by permission ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Permissions"
+                ],
+                "summary": "Delete permission",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Permission ID",
+                        "name": "permissionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permission deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Permission not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/roles": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get list of roles with optional filtering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "List roles",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by role name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Filter by active status",
+                        "name": "is_active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of roles",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerPageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new role with name and description",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Create a new role",
+                "parameters": [
+                    {
+                        "description": "Create role request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/roles/{roleId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get role details by role ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get role by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role details",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update role information by role ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Update role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update role request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete role by role ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Delete role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/roles/{roleId}/permissions": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Assign multiple permissions to a specific role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Assign permissions to role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Assign permissions request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.AssignPermissionsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permissions assigned successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Remove multiple permissions from a specific role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Remove permissions from role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Remove permissions request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.RemovePermissionsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permissions removed successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ships": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get list of ships with optional filtering",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ships"
+                ],
+                "summary": "List ships",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by operator ID",
+                        "name": "operator_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by ship name",
+                        "name": "ship_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by flag state",
+                        "name": "flag_state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by ship type",
+                        "name": "ship_type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by status",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Filter by active status",
+                        "name": "is_active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of ships",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerPageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new ship with detailed information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ships"
+                ],
+                "summary": "Create a new ship",
+                "parameters": [
+                    {
+                        "description": "Create ship request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateShipRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ship created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ships/{shipId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get ship details by ship ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ships"
+                ],
+                "summary": "Get ship by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Ship ID",
+                        "name": "shipId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ship details",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Ship not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update ship information by ship ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ships"
+                ],
+                "summary": "Update ship",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Ship ID",
+                        "name": "shipId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update ship request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateShipRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ship updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Ship not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete ship by ship ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ships"
+                ],
+                "summary": "Delete ship",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Ship ID",
+                        "name": "shipId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ship deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Ship not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Logout current authenticated user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User logout",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/_current": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get current authenticated user information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get current user",
+                "responses": {
+                    "200": {
+                        "description": "Current user details",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update current authenticated user information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update current user",
+                "parameters": [
+                    {
+                        "description": "Update user request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "Authenticate user with username/email and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User login",
+                "parameters": [
+                    {
+                        "description": "Login user request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.LoginUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "description": "Register a new user with username, email, and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "description": "Register user request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.RegisterUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User registered successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.AssignPermissionsRequest": {
+            "type": "object",
+            "required": [
+                "permission_ids"
+            ],
+            "properties": {
+                "permission_ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "model.CreateHarborRequest": {
+            "type": "object",
+            "required": [
+                "city",
+                "country",
+                "harbor_code",
+                "harbor_name",
+                "province"
+            ],
+            "properties": {
+                "anchorage_depth": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "berth_count": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "cargo_handling_capacity": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "channel_depth": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "city": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "contact_email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_person": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "country": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "harbor_code": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "harbor_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "has_breakbulk": {
+                    "type": "boolean"
+                },
+                "has_bulk": {
+                    "type": "boolean"
+                },
+                "has_cargo": {
+                    "type": "boolean"
+                },
+                "has_container": {
+                    "type": "boolean"
+                },
+                "has_customs": {
+                    "type": "boolean"
+                },
+                "has_fuel": {
+                    "type": "boolean"
+                },
+                "has_immigration": {
+                    "type": "boolean"
+                },
+                "has_liquid": {
+                    "type": "boolean"
+                },
+                "has_medical": {
+                    "type": "boolean"
+                },
+                "has_passenger": {
+                    "type": "boolean"
+                },
+                "has_pilotage": {
+                    "type": "boolean"
+                },
+                "has_quarantine": {
+                    "type": "boolean"
+                },
+                "has_repair": {
+                    "type": "boolean"
+                },
+                "has_roro": {
+                    "type": "boolean"
+                },
+                "has_security": {
+                    "type": "boolean"
+                },
+                "has_supplies": {
+                    "type": "boolean"
+                },
+                "has_tug_service": {
+                    "type": "boolean"
+                },
+                "has_waste": {
+                    "type": "boolean"
+                },
+                "has_water": {
+                    "type": "boolean"
+                },
+                "latitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                },
+                "longitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "max_ship_beam": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "max_ship_draft": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "max_ship_length": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "notes": {
+                    "type": "string",
+                    "maxLength": 1000
+                },
+                "operating_hours": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "province": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "storage_capacity": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "time_zone": {
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "un_locode": {
+                    "type": "string",
+                    "maxLength": 10
+                },
+                "website": {
+                    "type": "string",
+                    "maxLength": 500
+                }
+            }
+        },
+        "model.CreateOperatorRequest": {
+            "type": "object",
+            "required": [
+                "address",
+                "city",
+                "company_name",
+                "contact_email",
+                "contact_person",
+                "contact_phone",
+                "country",
+                "license_number",
+                "operator_code",
+                "operator_type",
+                "postal_code",
+                "province",
+                "user_id"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "company_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_person": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "country": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "established_at": {
+                    "type": "integer"
+                },
+                "license_expiry": {
+                    "type": "integer"
+                },
+                "license_number": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "notes": {
+                    "type": "string",
+                    "maxLength": 1000
+                },
+                "operator_code": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "operator_type": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "postal_code": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "province": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string",
+                    "maxLength": 500
+                }
+            }
+        },
+        "model.CreatePermissionRequest": {
+            "type": "object",
+            "required": [
+                "action",
+                "display_name",
+                "name",
+                "resource"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "display_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "resource": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.CreateRoleRequest": {
+            "type": "object",
+            "required": [
+                "display_name",
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "display_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.CreateShipRequest": {
+            "type": "object",
+            "required": [
+                "flag_state",
+                "operator_id",
+                "port_of_registry",
+                "ship_name",
+                "ship_type"
+            ],
+            "properties": {
+                "beam": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "build_year": {
+                    "type": "integer",
+                    "maximum": 2100,
+                    "minimum": 1800
+                },
+                "builder": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "call_sign": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "certificate_expiry": {
+                    "type": "integer"
+                },
+                "classification_society": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "crew_capacity": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "current_latitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                },
+                "current_longitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "deadweight_tonnage": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "draft": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "flag_state": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "gross_tonnage": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "imo_number": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "insurance_expiry": {
+                    "type": "integer"
+                },
+                "last_inspection": {
+                    "type": "integer"
+                },
+                "length": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "max_speed": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "mmsi": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "net_tonnage": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "next_inspection": {
+                    "type": "integer"
+                },
+                "notes": {
+                    "type": "string",
+                    "maxLength": 1000
+                },
+                "operator_id": {
+                    "type": "string"
+                },
+                "passenger_capacity": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "port_of_registry": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "ship_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "ship_type": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.LoginUserRequest": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "username": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.PageMetadata": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer"
+                },
+                "from": {
+                    "type": "integer"
+                },
+                "last_page": {
+                    "type": "integer"
+                },
+                "per_page": {
+                    "type": "integer"
+                },
+                "to": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.RegisterUserRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 8
+                },
+                "phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "username": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.RemovePermissionsRequest": {
+            "type": "object",
+            "required": [
+                "permission_ids"
+            ],
+            "properties": {
+                "permission_ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "model.SwaggerPageResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {}
+                },
+                "errors": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "meta": {
+                    "$ref": "#/definitions/model.PageMetadata"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "model.SwaggerWebResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "errors": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "meta": {
+                    "$ref": "#/definitions/model.PageMetadata"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "model.UpdateHarborRequest": {
+            "type": "object",
+            "properties": {
+                "anchorage_depth": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "berth_count": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "cargo_handling_capacity": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "channel_depth": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "city": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "contact_email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_person": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "country": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "harbor_code": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "harbor_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "has_breakbulk": {
+                    "type": "boolean"
+                },
+                "has_bulk": {
+                    "type": "boolean"
+                },
+                "has_cargo": {
+                    "type": "boolean"
+                },
+                "has_container": {
+                    "type": "boolean"
+                },
+                "has_customs": {
+                    "type": "boolean"
+                },
+                "has_fuel": {
+                    "type": "boolean"
+                },
+                "has_immigration": {
+                    "type": "boolean"
+                },
+                "has_liquid": {
+                    "type": "boolean"
+                },
+                "has_medical": {
+                    "type": "boolean"
+                },
+                "has_passenger": {
+                    "type": "boolean"
+                },
+                "has_pilotage": {
+                    "type": "boolean"
+                },
+                "has_quarantine": {
+                    "type": "boolean"
+                },
+                "has_repair": {
+                    "type": "boolean"
+                },
+                "has_roro": {
+                    "type": "boolean"
+                },
+                "has_security": {
+                    "type": "boolean"
+                },
+                "has_supplies": {
+                    "type": "boolean"
+                },
+                "has_tug_service": {
+                    "type": "boolean"
+                },
+                "has_waste": {
+                    "type": "boolean"
+                },
+                "has_water": {
+                    "type": "boolean"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "latitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                },
+                "longitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "max_ship_beam": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "max_ship_draft": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "max_ship_length": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "notes": {
+                    "type": "string",
+                    "maxLength": 1000
+                },
+                "operating_hours": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "province": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "storage_capacity": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "time_zone": {
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "un_locode": {
+                    "type": "string",
+                    "maxLength": 10
+                },
+                "website": {
+                    "type": "string",
+                    "maxLength": 500
+                }
+            }
+        },
+        "model.UpdateOperatorRequest": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "company_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_person": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "contact_phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "country": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "established_at": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "license_expiry": {
+                    "type": "integer"
+                },
+                "license_number": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "notes": {
+                    "type": "string",
+                    "maxLength": 1000
+                },
+                "operator_code": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "operator_type": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "postal_code": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "province": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "active",
+                        "inactive",
+                        "suspended"
+                    ]
+                },
+                "website": {
+                    "type": "string",
+                    "maxLength": 500
+                }
+            }
+        },
+        "model.UpdatePermissionRequest": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "display_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "resource": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.UpdateRoleRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "display_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "model.UpdateShipRequest": {
+            "type": "object",
+            "properties": {
+                "beam": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "build_year": {
+                    "type": "integer",
+                    "maximum": 2100,
+                    "minimum": 1800
+                },
+                "builder": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "call_sign": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "certificate_expiry": {
+                    "type": "integer"
+                },
+                "classification_society": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "crew_capacity": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "current_latitude": {
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                },
+                "current_longitude": {
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "deadweight_tonnage": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "draft": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "flag_state": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "gross_tonnage": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "imo_number": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "insurance_expiry": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "last_inspection": {
+                    "type": "integer"
+                },
+                "length": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "max_speed": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "mmsi": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "net_tonnage": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "next_inspection": {
+                    "type": "integer"
+                },
+                "notes": {
+                    "type": "string",
+                    "maxLength": 1000
+                },
+                "passenger_capacity": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "port_of_registry": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "ship_name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "ship_type": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "active",
+                        "inactive",
+                        "maintenance"
+                    ]
+                }
+            }
+        },
+        "model.UpdateUserRequest": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 8
+                },
+                "phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "username": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        }
+    },
     "securityDefinitions": {
         "BearerAuth": {
             "description": "Type \"Bearer\" followed by a space and JWT token.",

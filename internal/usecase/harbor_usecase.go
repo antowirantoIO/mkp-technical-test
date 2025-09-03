@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"context"
-	"mkp-boarding-test/internal/converter"
 	"mkp-boarding-test/internal/entity"
 	"mkp-boarding-test/internal/model"
+	"mkp-boarding-test/internal/model/converter"
 	"mkp-boarding-test/internal/repository"
 
 	"github.com/go-playground/validator/v10"
@@ -369,13 +369,30 @@ func (c *HarborUseCase) List(ctx context.Context, request *model.ListHarborReque
 		responses[i] = *converter.HarborToResponse(&harbor)
 	}
 
+	lastPage := (total + int64(request.Size) - 1) / int64(request.Size)
+	if lastPage == 0 {
+		lastPage = 1
+	}
+	
+	from := (request.Page-1)*request.Size + 1
+	to := request.Page * request.Size
+	if int64(to) > total {
+		to = int(total)
+	}
+	if total == 0 {
+		from = 0
+		to = 0
+	}
+	
 	return &model.WebResponse[[]model.HarborResponse]{
 		Data: responses,
-		Paging: &model.PageMetadata{
-			Page:      request.Page,
-			Size:      request.Size,
-			TotalItem: total,
-			TotalPage: (total + int64(request.Size) - 1) / int64(request.Size),
+		Meta: &model.PageMetadata{
+			CurrentPage: request.Page,
+			PerPage:     request.Size,
+			Total:       total,
+			LastPage:    lastPage,
+			From:        from,
+			To:          to,
 		},
 	}, nil
 }

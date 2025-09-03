@@ -200,9 +200,8 @@ func (c *RoleUseCase) Delete(ctx context.Context, request *model.DeleteRoleReque
 	return nil
 }
 
-func (c *RoleUseCase) List(ctx context.Context, request *model.ListRoleRequest) ([]model.RoleResponse, error) {
-	tx := c.DB.WithContext(ctx).Begin()
-	defer tx.Rollback()
+func (c *RoleUseCase) List(ctx context.Context, request *model.ListRoleRequest) (*model.WebResponse[[]model.RoleResponse], error) {
+	tx := c.DB.WithContext(ctx)
 
 	if err := c.Validate.Struct(request); err != nil {
 		c.Log.WithError(err).Error("failed to validate request body")
@@ -218,6 +217,14 @@ func (c *RoleUseCase) List(ctx context.Context, request *model.ListRoleRequest) 
 		query = query.Where("name ILIKE ?", "%"+*request.Name+"%")
 	}
 
+	// Count total records
+	var total int64
+	if err := query.Count(&total).Error; err != nil {
+		c.Log.WithError(err).Error("failed to count roles")
+		return nil, fiber.ErrInternalServerError
+	}
+
+	// Apply pagination
 	offset := (request.Page - 1) * request.Size
 	query = query.Offset(offset).Limit(request.Size)
 
@@ -227,17 +234,37 @@ func (c *RoleUseCase) List(ctx context.Context, request *model.ListRoleRequest) 
 		return nil, fiber.ErrInternalServerError
 	}
 
-	if err := tx.Commit().Error; err != nil {
-		c.Log.WithError(err).Error("failed to commit transaction")
-		return nil, fiber.ErrInternalServerError
-	}
-
 	responses := make([]model.RoleResponse, len(roles))
 	for i, role := range roles {
 		responses[i] = *converter.RoleToResponse(&role)
 	}
 
-	return responses, nil
+	lastPage := (total + int64(request.Size) - 1) / int64(request.Size)
+	if lastPage == 0 {
+		lastPage = 1
+	}
+	
+	from := (request.Page-1)*request.Size + 1
+	to := request.Page * request.Size
+	if int64(to) > total {
+		to = int(total)
+	}
+	if total == 0 {
+		from = 0
+		to = 0
+	}
+	
+	return &model.WebResponse[[]model.RoleResponse]{
+		Data: responses,
+		Meta: &model.PageMetadata{
+			CurrentPage: request.Page,
+			PerPage:     request.Size,
+			Total:       total,
+			LastPage:    lastPage,
+			From:        from,
+			To:          to,
+		},
+	}, nil
 }
 
 func (c *RoleUseCase) AssignPermissions(ctx context.Context, request *model.AssignPermissionsRequest) error {

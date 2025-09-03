@@ -1,0 +1,9 @@
+-- Remove seed data for user_roles table
+
+DELETE FROM user_roles WHERE user_id IN (
+    '770e8400-e29b-41d4-a716-446655440001',
+    '770e8400-e29b-41d4-a716-446655440002',
+    '770e8400-e29b-41d4-a716-446655440003',
+    '770e8400-e29b-41d4-a716-446655440004',
+    '770e8400-e29b-41d4-a716-446655440005'
+);

@@ -1,4 +1,4 @@
-// @title Golang Clean Architecture API
+// @title MKP Boarding Test API
 // @version 1.0
 // @description This is a sample server for Golang Clean Architecture.
 // @termsOfService http://swagger.io/terms/
@@ -11,7 +11,7 @@
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host localhost:3000
-// @BasePath /api
+// @BasePath /
 // @schemes http https
 
 // @securityDefinitions.apikey BearerAuth

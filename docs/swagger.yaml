@@ -1,4 +1,733 @@
-basePath: /api
+basePath: /
+definitions:
+  model.AssignPermissionsRequest:
+    properties:
+      permission_ids:
+        items:
+          type: string
+        type: array
+    required:
+    - permission_ids
+    type: object
+  model.CreateHarborRequest:
+    properties:
+      anchorage_depth:
+        minimum: 0
+        type: number
+      berth_count:
+        minimum: 0
+        type: integer
+      cargo_handling_capacity:
+        minimum: 0
+        type: number
+      channel_depth:
+        minimum: 0
+        type: number
+      city:
+        maxLength: 100
+        type: string
+      contact_email:
+        maxLength: 255
+        type: string
+      contact_person:
+        maxLength: 255
+        type: string
+      contact_phone:
+        maxLength: 20
+        type: string
+      country:
+        maxLength: 100
+        type: string
+      harbor_code:
+        maxLength: 20
+        type: string
+      harbor_name:
+        maxLength: 255
+        type: string
+      has_breakbulk:
+        type: boolean
+      has_bulk:
+        type: boolean
+      has_cargo:
+        type: boolean
+      has_container:
+        type: boolean
+      has_customs:
+        type: boolean
+      has_fuel:
+        type: boolean
+      has_immigration:
+        type: boolean
+      has_liquid:
+        type: boolean
+      has_medical:
+        type: boolean
+      has_passenger:
+        type: boolean
+      has_pilotage:
+        type: boolean
+      has_quarantine:
+        type: boolean
+      has_repair:
+        type: boolean
+      has_roro:
+        type: boolean
+      has_security:
+        type: boolean
+      has_supplies:
+        type: boolean
+      has_tug_service:
+        type: boolean
+      has_waste:
+        type: boolean
+      has_water:
+        type: boolean
+      latitude:
+        maximum: 90
+        minimum: -90
+        type: number
+      longitude:
+        maximum: 180
+        minimum: -180
+        type: number
+      max_ship_beam:
+        minimum: 0
+        type: number
+      max_ship_draft:
+        minimum: 0
+        type: number
+      max_ship_length:
+        minimum: 0
+        type: number
+      notes:
+        maxLength: 1000
+        type: string
+      operating_hours:
+        maxLength: 255
+        type: string
+      province:
+        maxLength: 100
+        type: string
+      storage_capacity:
+        minimum: 0
+        type: number
+      time_zone:
+        maxLength: 50
+        type: string
+      un_locode:
+        maxLength: 10
+        type: string
+      website:
+        maxLength: 500
+        type: string
+    required:
+    - city
+    - country
+    - harbor_code
+    - harbor_name
+    - province
+    type: object
+  model.CreateOperatorRequest:
+    properties:
+      address:
+        type: string
+      city:
+        maxLength: 100
+        type: string
+      company_name:
+        maxLength: 255
+        type: string
+      contact_email:
+        maxLength: 255
+        type: string
+      contact_person:
+        maxLength: 255
+        type: string
+      contact_phone:
+        maxLength: 20
+        type: string
+      country:
+        maxLength: 100
+        type: string
+      established_at:
+        type: integer
+      license_expiry:
+        type: integer
+      license_number:
+        maxLength: 100
+        type: string
+      notes:
+        maxLength: 1000
+        type: string
+      operator_code:
+        maxLength: 20
+        type: string
+      operator_type:
+        maxLength: 100
+        type: string
+      postal_code:
+        maxLength: 20
+        type: string
+      province:
+        maxLength: 100
+        type: string
+      user_id:
+        type: string
+      website:
+        maxLength: 500
+        type: string
+    required:
+    - address
+    - city
+    - company_name
+    - contact_email
+    - contact_person
+    - contact_phone
+    - country
+    - license_number
+    - operator_code
+    - operator_type
+    - postal_code
+    - province
+    - user_id
+    type: object
+  model.CreatePermissionRequest:
+    properties:
+      action:
+        maxLength: 100
+        type: string
+      description:
+        maxLength: 500
+        type: string
+      display_name:
+        maxLength: 255
+        type: string
+      is_active:
+        type: boolean
+      name:
+        maxLength: 100
+        type: string
+      resource:
+        maxLength: 100
+        type: string
+    required:
+    - action
+    - display_name
+    - name
+    - resource
+    type: object
+  model.CreateRoleRequest:
+    properties:
+      description:
+        maxLength: 500
+        type: string
+      display_name:
+        maxLength: 255
+        type: string
+      is_active:
+        type: boolean
+      name:
+        maxLength: 100
+        type: string
+    required:
+    - display_name
+    - name
+    type: object
+  model.CreateShipRequest:
+    properties:
+      beam:
+        minimum: 0
+        type: number
+      build_year:
+        maximum: 2100
+        minimum: 1800
+        type: integer
+      builder:
+        maxLength: 255
+        type: string
+      call_sign:
+        maxLength: 20
+        type: string
+      certificate_expiry:
+        type: integer
+      classification_society:
+        maxLength: 255
+        type: string
+      crew_capacity:
+        minimum: 0
+        type: integer
+      current_latitude:
+        maximum: 90
+        minimum: -90
+        type: number
+      current_longitude:
+        maximum: 180
+        minimum: -180
+        type: number
+      deadweight_tonnage:
+        minimum: 0
+        type: number
+      draft:
+        minimum: 0
+        type: number
+      flag_state:
+        maxLength: 100
+        type: string
+      gross_tonnage:
+        minimum: 0
+        type: number
+      imo_number:
+        maxLength: 20
+        type: string
+      insurance_expiry:
+        type: integer
+      last_inspection:
+        type: integer
+      length:
+        minimum: 0
+        type: number
+      max_speed:
+        minimum: 0
+        type: number
+      mmsi:
+        maxLength: 20
+        type: string
+      net_tonnage:
+        minimum: 0
+        type: number
+      next_inspection:
+        type: integer
+      notes:
+        maxLength: 1000
+        type: string
+      operator_id:
+        type: string
+      passenger_capacity:
+        minimum: 0
+        type: integer
+      port_of_registry:
+        maxLength: 255
+        type: string
+      ship_name:
+        maxLength: 255
+        type: string
+      ship_type:
+        maxLength: 100
+        type: string
+    required:
+    - flag_state
+    - operator_id
+    - port_of_registry
+    - ship_name
+    - ship_type
+    type: object
+  model.LoginUserRequest:
+    properties:
+      password:
+        maxLength: 100
+        type: string
+      username:
+        maxLength: 100
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  model.PageMetadata:
+    properties:
+      current_page:
+        type: integer
+      from:
+        type: integer
+      last_page:
+        type: integer
+      per_page:
+        type: integer
+      to:
+        type: integer
+      total:
+        type: integer
+    type: object
+  model.RegisterUserRequest:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      first_name:
+        maxLength: 100
+        type: string
+      last_name:
+        maxLength: 100
+        type: string
+      password:
+        maxLength: 100
+        minLength: 8
+        type: string
+      phone:
+        maxLength: 20
+        type: string
+      username:
+        maxLength: 100
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  model.RemovePermissionsRequest:
+    properties:
+      permission_ids:
+        items:
+          type: string
+        type: array
+    required:
+    - permission_ids
+    type: object
+  model.SwaggerPageResponse:
+    properties:
+      data:
+        items: {}
+        type: array
+      errors:
+        type: string
+      message:
+        type: string
+      meta:
+        $ref: '#/definitions/model.PageMetadata'
+      success:
+        type: boolean
+    type: object
+  model.SwaggerWebResponse:
+    properties:
+      data: {}
+      errors:
+        type: string
+      message:
+        type: string
+      meta:
+        $ref: '#/definitions/model.PageMetadata'
+      success:
+        type: boolean
+    type: object
+  model.UpdateHarborRequest:
+    properties:
+      anchorage_depth:
+        minimum: 0
+        type: number
+      berth_count:
+        minimum: 0
+        type: integer
+      cargo_handling_capacity:
+        minimum: 0
+        type: number
+      channel_depth:
+        minimum: 0
+        type: number
+      city:
+        maxLength: 100
+        type: string
+      contact_email:
+        maxLength: 255
+        type: string
+      contact_person:
+        maxLength: 255
+        type: string
+      contact_phone:
+        maxLength: 20
+        type: string
+      country:
+        maxLength: 100
+        type: string
+      harbor_code:
+        maxLength: 20
+        type: string
+      harbor_name:
+        maxLength: 255
+        type: string
+      has_breakbulk:
+        type: boolean
+      has_bulk:
+        type: boolean
+      has_cargo:
+        type: boolean
+      has_container:
+        type: boolean
+      has_customs:
+        type: boolean
+      has_fuel:
+        type: boolean
+      has_immigration:
+        type: boolean
+      has_liquid:
+        type: boolean
+      has_medical:
+        type: boolean
+      has_passenger:
+        type: boolean
+      has_pilotage:
+        type: boolean
+      has_quarantine:
+        type: boolean
+      has_repair:
+        type: boolean
+      has_roro:
+        type: boolean
+      has_security:
+        type: boolean
+      has_supplies:
+        type: boolean
+      has_tug_service:
+        type: boolean
+      has_waste:
+        type: boolean
+      has_water:
+        type: boolean
+      is_active:
+        type: boolean
+      latitude:
+        maximum: 90
+        minimum: -90
+        type: number
+      longitude:
+        maximum: 180
+        minimum: -180
+        type: number
+      max_ship_beam:
+        minimum: 0
+        type: number
+      max_ship_draft:
+        minimum: 0
+        type: number
+      max_ship_length:
+        minimum: 0
+        type: number
+      notes:
+        maxLength: 1000
+        type: string
+      operating_hours:
+        maxLength: 255
+        type: string
+      province:
+        maxLength: 100
+        type: string
+      storage_capacity:
+        minimum: 0
+        type: number
+      time_zone:
+        maxLength: 50
+        type: string
+      un_locode:
+        maxLength: 10
+        type: string
+      website:
+        maxLength: 500
+        type: string
+    type: object
+  model.UpdateOperatorRequest:
+    properties:
+      address:
+        type: string
+      city:
+        maxLength: 100
+        type: string
+      company_name:
+        maxLength: 255
+        type: string
+      contact_email:
+        maxLength: 255
+        type: string
+      contact_person:
+        maxLength: 255
+        type: string
+      contact_phone:
+        maxLength: 20
+        type: string
+      country:
+        maxLength: 100
+        type: string
+      established_at:
+        type: integer
+      is_active:
+        type: boolean
+      license_expiry:
+        type: integer
+      license_number:
+        maxLength: 100
+        type: string
+      notes:
+        maxLength: 1000
+        type: string
+      operator_code:
+        maxLength: 20
+        type: string
+      operator_type:
+        maxLength: 100
+        type: string
+      postal_code:
+        maxLength: 20
+        type: string
+      province:
+        maxLength: 100
+        type: string
+      status:
+        enum:
+        - active
+        - inactive
+        - suspended
+        type: string
+      website:
+        maxLength: 500
+        type: string
+    type: object
+  model.UpdatePermissionRequest:
+    properties:
+      action:
+        maxLength: 100
+        type: string
+      description:
+        maxLength: 500
+        type: string
+      display_name:
+        maxLength: 255
+        type: string
+      is_active:
+        type: boolean
+      name:
+        maxLength: 100
+        type: string
+      resource:
+        maxLength: 100
+        type: string
+    type: object
+  model.UpdateRoleRequest:
+    properties:
+      description:
+        maxLength: 500
+        type: string
+      display_name:
+        maxLength: 255
+        type: string
+      is_active:
+        type: boolean
+      name:
+        maxLength: 100
+        type: string
+    type: object
+  model.UpdateShipRequest:
+    properties:
+      beam:
+        minimum: 0
+        type: number
+      build_year:
+        maximum: 2100
+        minimum: 1800
+        type: integer
+      builder:
+        maxLength: 255
+        type: string
+      call_sign:
+        maxLength: 20
+        type: string
+      certificate_expiry:
+        type: integer
+      classification_society:
+        maxLength: 255
+        type: string
+      crew_capacity:
+        minimum: 0
+        type: integer
+      current_latitude:
+        maximum: 90
+        minimum: -90
+        type: number
+      current_longitude:
+        maximum: 180
+        minimum: -180
+        type: number
+      deadweight_tonnage:
+        minimum: 0
+        type: number
+      draft:
+        minimum: 0
+        type: number
+      flag_state:
+        maxLength: 100
+        type: string
+      gross_tonnage:
+        minimum: 0
+        type: number
+      imo_number:
+        maxLength: 20
+        type: string
+      insurance_expiry:
+        type: integer
+      is_active:
+        type: boolean
+      last_inspection:
+        type: integer
+      length:
+        minimum: 0
+        type: number
+      max_speed:
+        minimum: 0
+        type: number
+      mmsi:
+        maxLength: 20
+        type: string
+      net_tonnage:
+        minimum: 0
+        type: number
+      next_inspection:
+        type: integer
+      notes:
+        maxLength: 1000
+        type: string
+      passenger_capacity:
+        minimum: 0
+        type: integer
+      port_of_registry:
+        maxLength: 255
+        type: string
+      ship_name:
+        maxLength: 255
+        type: string
+      ship_type:
+        maxLength: 100
+        type: string
+      status:
+        enum:
+        - active
+        - inactive
+        - maintenance
+        type: string
+    type: object
+  model.UpdateUserRequest:
+    properties:
+      avatar:
+        maxLength: 500
+        type: string
+      email:
+        maxLength: 255
+        type: string
+      first_name:
+        maxLength: 100
+        type: string
+      is_active:
+        type: boolean
+      last_name:
+        maxLength: 100
+        type: string
+      password:
+        maxLength: 100
+        minLength: 8
+        type: string
+      phone:
+        maxLength: 20
+        type: string
+      username:
+        maxLength: 100
+        type: string
+    type: object
 host: localhost:3000
 info:
   contact:
@@ -10,9 +739,1268 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Golang Clean Architecture API
+  title: MKP Boarding Test API
   version: "1.0"
-paths: {}
+paths:
+  /api/harbors:
+    get:
+      consumes:
+      - application/json
+      description: Get list of harbors with optional filtering
+      parameters:
+      - description: Filter by harbor name
+        in: query
+        name: name
+        type: string
+      - description: Filter by country
+        in: query
+        name: country
+        type: string
+      - description: Filter by province
+        in: query
+        name: province
+        type: string
+      - description: Filter by city
+        in: query
+        name: city
+        type: string
+      - default: true
+        description: Filter by active status
+        in: query
+        name: is_active
+        type: boolean
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of harbors
+          schema:
+            $ref: '#/definitions/model.SwaggerPageResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: List harbors
+      tags:
+      - Harbors
+    post:
+      consumes:
+      - application/json
+      description: Create a new harbor with detailed information
+      parameters:
+      - description: Create harbor request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateHarborRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Harbor created successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new harbor
+      tags:
+      - Harbors
+  /api/harbors/{harborId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete harbor by harbor ID
+      parameters:
+      - description: Harbor ID
+        in: path
+        name: harborId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Harbor deleted successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Harbor not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete harbor
+      tags:
+      - Harbors
+    get:
+      consumes:
+      - application/json
+      description: Get harbor details by harbor ID
+      parameters:
+      - description: Harbor ID
+        in: path
+        name: harborId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Harbor details
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Harbor not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get harbor by ID
+      tags:
+      - Harbors
+    put:
+      consumes:
+      - application/json
+      description: Update harbor information by harbor ID
+      parameters:
+      - description: Harbor ID
+        in: path
+        name: harborId
+        required: true
+        type: string
+      - description: Update harbor request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateHarborRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Harbor updated successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Harbor not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Update harbor
+      tags:
+      - Harbors
+  /api/operators:
+    get:
+      consumes:
+      - application/json
+      description: Get list of operators with optional filtering
+      parameters:
+      - description: Filter by company name
+        in: query
+        name: company_name
+        type: string
+      - description: Filter by operator type
+        in: query
+        name: operator_type
+        type: string
+      - description: Filter by status
+        in: query
+        name: status
+        type: string
+      - description: Filter by country
+        in: query
+        name: country
+        type: string
+      - description: Filter by province
+        in: query
+        name: province
+        type: string
+      - description: Filter by city
+        in: query
+        name: city
+        type: string
+      - default: true
+        description: Filter by active status
+        in: query
+        name: is_active
+        type: boolean
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of operators
+          schema:
+            $ref: '#/definitions/model.SwaggerPageResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: List operators
+      tags:
+      - Operators
+    post:
+      consumes:
+      - application/json
+      description: Create a new operator with company information
+      parameters:
+      - description: Create operator request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateOperatorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Operator created successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new operator
+      tags:
+      - Operators
+  /api/operators/{operatorId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete operator by operator ID
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operatorId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Operator deleted successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Operator not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete operator
+      tags:
+      - Operators
+    get:
+      consumes:
+      - application/json
+      description: Get operator details by operator ID
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operatorId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Operator details
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Operator not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get operator by ID
+      tags:
+      - Operators
+    put:
+      consumes:
+      - application/json
+      description: Update operator information by operator ID
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operatorId
+        required: true
+        type: string
+      - description: Update operator request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateOperatorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Operator updated successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Operator not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Update operator
+      tags:
+      - Operators
+  /api/permissions:
+    get:
+      consumes:
+      - application/json
+      description: Get list of permissions with optional filtering
+      parameters:
+      - description: Filter by permission name
+        in: query
+        name: name
+        type: string
+      - description: Filter by resource
+        in: query
+        name: resource
+        type: string
+      - description: Filter by action
+        in: query
+        name: action
+        type: string
+      - default: true
+        description: Filter by active status
+        in: query
+        name: is_active
+        type: boolean
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of permissions
+          schema:
+            $ref: '#/definitions/model.SwaggerPageResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: List permissions
+      tags:
+      - Permissions
+    post:
+      consumes:
+      - application/json
+      description: Create a new permission with name, resource, and action
+      parameters:
+      - description: Create permission request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreatePermissionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Permission created successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new permission
+      tags:
+      - Permissions
+  /api/permissions/{permissionId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete permission by permission ID
+      parameters:
+      - description: Permission ID
+        in: path
+        name: permissionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Permission deleted successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Permission not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete permission
+      tags:
+      - Permissions
+    get:
+      consumes:
+      - application/json
+      description: Get permission details by permission ID
+      parameters:
+      - description: Permission ID
+        in: path
+        name: permissionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Permission details
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Permission not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get permission by ID
+      tags:
+      - Permissions
+    put:
+      consumes:
+      - application/json
+      description: Update permission information by permission ID
+      parameters:
+      - description: Permission ID
+        in: path
+        name: permissionId
+        required: true
+        type: string
+      - description: Update permission request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdatePermissionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Permission updated successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Permission not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Update permission
+      tags:
+      - Permissions
+  /api/roles:
+    get:
+      consumes:
+      - application/json
+      description: Get list of roles with optional filtering
+      parameters:
+      - description: Filter by role name
+        in: query
+        name: name
+        type: string
+      - default: true
+        description: Filter by active status
+        in: query
+        name: is_active
+        type: boolean
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of roles
+          schema:
+            $ref: '#/definitions/model.SwaggerPageResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: List roles
+      tags:
+      - Roles
+    post:
+      consumes:
+      - application/json
+      description: Create a new role with name and description
+      parameters:
+      - description: Create role request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Role created successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new role
+      tags:
+      - Roles
+  /api/roles/{roleId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete role by role ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Role deleted successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Role not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete role
+      tags:
+      - Roles
+    get:
+      consumes:
+      - application/json
+      description: Get role details by role ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Role details
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Role not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get role by ID
+      tags:
+      - Roles
+    put:
+      consumes:
+      - application/json
+      description: Update role information by role ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      - description: Update role request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Role updated successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Role not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Update role
+      tags:
+      - Roles
+  /api/roles/{roleId}/permissions:
+    delete:
+      consumes:
+      - application/json
+      description: Remove multiple permissions from a specific role
+      parameters:
+      - description: Role ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      - description: Remove permissions request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.RemovePermissionsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Permissions removed successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Role not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove permissions from role
+      tags:
+      - Roles
+    post:
+      consumes:
+      - application/json
+      description: Assign multiple permissions to a specific role
+      parameters:
+      - description: Role ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      - description: Assign permissions request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.AssignPermissionsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Permissions assigned successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Role not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Assign permissions to role
+      tags:
+      - Roles
+  /api/ships:
+    get:
+      consumes:
+      - application/json
+      description: Get list of ships with optional filtering
+      parameters:
+      - description: Filter by operator ID
+        in: query
+        name: operator_id
+        type: string
+      - description: Filter by ship name
+        in: query
+        name: ship_name
+        type: string
+      - description: Filter by flag state
+        in: query
+        name: flag_state
+        type: string
+      - description: Filter by ship type
+        in: query
+        name: ship_type
+        type: string
+      - description: Filter by status
+        in: query
+        name: status
+        type: string
+      - default: true
+        description: Filter by active status
+        in: query
+        name: is_active
+        type: boolean
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of ships
+          schema:
+            $ref: '#/definitions/model.SwaggerPageResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: List ships
+      tags:
+      - Ships
+    post:
+      consumes:
+      - application/json
+      description: Create a new ship with detailed information
+      parameters:
+      - description: Create ship request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateShipRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ship created successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new ship
+      tags:
+      - Ships
+  /api/ships/{shipId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete ship by ship ID
+      parameters:
+      - description: Ship ID
+        in: path
+        name: shipId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ship deleted successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Ship not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete ship
+      tags:
+      - Ships
+    get:
+      consumes:
+      - application/json
+      description: Get ship details by ship ID
+      parameters:
+      - description: Ship ID
+        in: path
+        name: shipId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ship details
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Ship not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get ship by ID
+      tags:
+      - Ships
+    put:
+      consumes:
+      - application/json
+      description: Update ship information by ship ID
+      parameters:
+      - description: Ship ID
+        in: path
+        name: shipId
+        required: true
+        type: string
+      - description: Update ship request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateShipRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ship updated successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "404":
+          description: Ship not found
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Update ship
+      tags:
+      - Ships
+  /api/users:
+    delete:
+      consumes:
+      - application/json
+      description: Logout current authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Logout successful
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: User logout
+      tags:
+      - Users
+  /api/users/_current:
+    get:
+      consumes:
+      - application/json
+      description: Get current authenticated user information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Current user details
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - Users
+    patch:
+      consumes:
+      - application/json
+      description: Update current authenticated user information
+      parameters:
+      - description: Update user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User updated successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Update current user
+      tags:
+      - Users
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with username/email and password
+      parameters:
+      - description: Login user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "401":
+          description: Invalid credentials
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      summary: User login
+      tags:
+      - Auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with username, email, and password
+      parameters:
+      - description: Register user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegisterUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User registered successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      summary: Register a new user
+      tags:
+      - Auth
 schemes:
 - http
 - https

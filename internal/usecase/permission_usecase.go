@@ -211,9 +211,8 @@ func (c *PermissionUseCase) Delete(ctx context.Context, request *model.DeletePer
 	return nil
 }
 
-func (c *PermissionUseCase) List(ctx context.Context, request *model.ListPermissionRequest) ([]model.PermissionResponse, error) {
-	tx := c.DB.WithContext(ctx).Begin()
-	defer tx.Rollback()
+func (c *PermissionUseCase) List(ctx context.Context, request *model.ListPermissionRequest) (*model.WebResponse[[]model.PermissionResponse], error) {
+	tx := c.DB.WithContext(ctx)
 
 	if err := c.Validate.Struct(request); err != nil {
 		c.Log.WithError(err).Error("failed to validate request body")
@@ -235,6 +234,14 @@ func (c *PermissionUseCase) List(ctx context.Context, request *model.ListPermiss
 		query = query.Where("action = ?", *request.Action)
 	}
 
+	// Count total records
+	var total int64
+	if err := query.Count(&total).Error; err != nil {
+		c.Log.WithError(err).Error("failed to count permissions")
+		return nil, fiber.ErrInternalServerError
+	}
+
+	// Apply pagination
 	offset := (request.Page - 1) * request.Size
 	query = query.Offset(offset).Limit(request.Size)
 
@@ -244,15 +251,35 @@ func (c *PermissionUseCase) List(ctx context.Context, request *model.ListPermiss
 		return nil, fiber.ErrInternalServerError
 	}
 
-	if err := tx.Commit().Error; err != nil {
-		c.Log.WithError(err).Error("failed to commit transaction")
-		return nil, fiber.ErrInternalServerError
-	}
-
 	responses := make([]model.PermissionResponse, len(permissions))
 	for i, permission := range permissions {
 		responses[i] = *converter.PermissionToResponse(&permission)
 	}
 
-	return responses, nil
+	lastPage := (total + int64(request.Size) - 1) / int64(request.Size)
+	if lastPage == 0 {
+		lastPage = 1
+	}
+	
+	from := (request.Page-1)*request.Size + 1
+	to := request.Page * request.Size
+	if int64(to) > total {
+		to = int(total)
+	}
+	if total == 0 {
+		from = 0
+		to = 0
+	}
+	
+	return &model.WebResponse[[]model.PermissionResponse]{
+		Data: responses,
+		Meta: &model.PageMetadata{
+			CurrentPage: request.Page,
+			PerPage:     request.Size,
+			Total:       total,
+			LastPage:    lastPage,
+			From:        from,
+			To:          to,
+		},
+	}, nil
 }
