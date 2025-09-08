@@ -1,9 +1,0 @@
--- Seed data for users table
--- Maritime boarding system users with hashed passwords
-
-INSERT INTO users (id, username, email, password, first_name, last_name, phone, avatar, status, is_active, email_verified_at, last_login_at, token, token_expires_at, created_at, updated_at, deleted_at, refresh_token, refresh_expires_at, is_verified, password_changed_at) VALUES
-('770e8400-e29b-41d4-a716-446655440001', 'admin_system', 'admin@maritime.gov', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin', 'System', '+1-555-0101', NULL, 'active', true, 1735027200, NULL, NULL, NULL, 1735027200, 1735027200, NULL, NULL, NULL, true, NULL),
-('770e8400-e29b-41d4-a716-446655440002', 'john_smith', 'john.smith@portauthority.gov', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'John', 'Smith', '+1-555-0102', NULL, 'active', true, 1735027200, NULL, NULL, NULL, 1735027200, 1735027200, NULL, NULL, NULL, true, NULL),
-('770e8400-e29b-41d4-a716-446655440003', 'sarah_wilson', 'sarah.wilson@coastguard.gov', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Sarah', 'Wilson', '+1-555-0103', NULL, 'active', true, 1735027200, NULL, NULL, NULL, 1735027200, 1735027200, NULL, NULL, NULL, true, NULL),
-('770e8400-e29b-41d4-a716-446655440004', 'michael_brown', 'michael.brown@shipping.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Michael', 'Brown', '+1-555-0104', NULL, 'active', true, 1735027200, NULL, NULL, NULL, 1735027200, 1735027200, NULL, NULL, NULL, true, NULL),
-('770e8400-e29b-41d4-a716-446655440005', 'lisa_davis', 'lisa.davis@maritime-ops.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Lisa', 'Davis', '+1-555-0105', NULL, 'active', true, 1735027200, NULL, NULL, NULL, 1735027200, 1735027200, NULL, NULL, NULL, true, NULL);

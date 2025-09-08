@@ -122,6 +122,6 @@ prod-deploy: ## Deploy to production (customize as needed)
 	# Add your deployment commands here
 
 .PHONY: help dev worker build test test-coverage clean deps tidy vendor \
-        db-create db-drop db-migrate-up db-migrate-down db-migrate-force db-migrate-version \
+        db-create db-drop db-migrate-up db-migrate-down db-migrate-force db-migrate-version db-seed-up db-seed-down \
         docker-build docker-run docker-up docker-down docker-logs docker-restart docker-rebuild \
         swagger-gen swagger-fmt fmt vet lint prod-build prod-deploy
