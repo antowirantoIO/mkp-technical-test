@@ -1,5 +1,5 @@
 # Variables
-APP_NAME=mkp-boarding-test
+APP_NAME=mkp-boarding-test-app
 DOCKER_COMPOSE=docker-compose
 GO=go
 MIGRATE=migrate

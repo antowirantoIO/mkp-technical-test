@@ -322,12 +322,20 @@ func (c *HarborUseCaseImpl) Delete(ctx context.Context, request *model.DeleteHar
 	return nil
 }
 
-func (c *HarborUseCaseImpl) List(ctx context.Context, request *model.ListHarborRequest) (*model.WebResponse[[]model.HarborResponse], error) {
+func (c *HarborUseCaseImpl) List(ctx context.Context, request *model.ListHarborRequest, userId string) (*model.WebResponse[[]model.HarborResponse], error) {
 	tx := c.DB.WithContext(ctx)
 
 	if err := c.Validate.Struct(request); err != nil {
 		c.Log.WithError(err).Error("failed to validate request body")
 		return nil, fiber.ErrBadRequest
+	}
+
+	var userRole entity.UserRole
+	err := tx.Model(&entity.UserRole{}).Where("user_id = ?", userId).First(&userRole).Error
+
+	if err != nil {
+		c.Log.WithError(err).Error("failed to find user role")
+		return nil, fiber.ErrInternalServerError
 	}
 
 	query := tx.Model(&entity.Harbor{}).Where("deleted_at IS NULL")
@@ -354,6 +362,8 @@ func (c *HarborUseCaseImpl) List(ctx context.Context, request *model.ListHarborR
 		c.Log.WithError(err).Error("failed to count harbors")
 		return nil, fiber.ErrInternalServerError
 	}
+
+	query = query.Joins("INNER JOIN role_harbors AS rh ON rh.harbor_id = harbors.id").Where("rh.role_id = ?", userRole.RoleID)
 
 	// Apply pagination
 	offset := (request.Page - 1) * request.Size

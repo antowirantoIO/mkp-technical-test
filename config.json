@@ -12,7 +12,7 @@
   "database": {
     "username": "postgres",
     "password": "postgres",
-    "host": "postgres",
+    "host": "127.0.0.1",
     "port": 5432,
     "name": "mkp_technicaltest",
     "pool": {

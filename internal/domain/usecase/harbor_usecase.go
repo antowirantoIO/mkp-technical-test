@@ -10,5 +10,5 @@ type HarborUseCase interface {
 	Update(ctx context.Context, request *model.UpdateHarborRequest) (*model.HarborResponse, error)
 	Get(ctx context.Context, request *model.GetHarborRequest) (*model.HarborResponse, error)
 	Delete(ctx context.Context, request *model.DeleteHarborRequest) error
-	List(ctx context.Context, request *model.ListHarborRequest) (*model.WebResponse[[]model.HarborResponse], error)
+	List(ctx context.Context, request *model.ListHarborRequest, userId string) (*model.WebResponse[[]model.HarborResponse], error)
 }

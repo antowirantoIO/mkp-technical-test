@@ -13,4 +13,6 @@ type UserUseCase interface {
 	Current(ctx context.Context, request *request.GetUserRequest) (*response.UserResponse, error)
 	Logout(ctx context.Context, request *request.LogoutUserRequest) (bool, error)
 	Update(ctx context.Context, request *request.UpdateUserRequest) (*response.UserResponse, error)
+
+	FindByRoleID(ctx context.Context, roleID string) ([]*response.UserResponse, error)
 }

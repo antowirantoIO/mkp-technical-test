@@ -34,6 +34,8 @@ type ShipResponse struct {
 	Notes                 *string  `json:"notes"`
 	CreatedAt             int64    `json:"created_at"`
 	UpdatedAt             int64    `json:"updated_at"`
+
+	Operator OperatorResponse `json:"operator"`
 }
 
 type CreateShipRequest struct {

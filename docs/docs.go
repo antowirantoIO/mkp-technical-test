@@ -1849,7 +1849,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.UpdateUserRequest"
+                            "$ref": "#/definitions/request.UpdateUserRequest"
                         }
                     }
                 ],
@@ -1868,6 +1868,55 @@ const docTemplate = `{
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/roles/{roleId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get list of users by role ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get users by role ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Role ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.SwaggerWebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
                         "schema": {
                             "$ref": "#/definitions/model.SwaggerWebResponse"
                         }
@@ -1953,7 +2002,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.RegisterUserRequest"
+                            "$ref": "#/definitions/request.RegisterUserRequest"
                         }
                     }
                 ],
@@ -2458,41 +2507,6 @@ const docTemplate = `{
                 }
             }
         },
-        "model.RegisterUserRequest": {
-            "type": "object",
-            "required": [
-                "email",
-                "password",
-                "username"
-            ],
-            "properties": {
-                "email": {
-                    "type": "string",
-                    "maxLength": 255
-                },
-                "first_name": {
-                    "type": "string",
-                    "maxLength": 100
-                },
-                "last_name": {
-                    "type": "string",
-                    "maxLength": 100
-                },
-                "password": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "minLength": 8
-                },
-                "phone": {
-                    "type": "string",
-                    "maxLength": 20
-                },
-                "username": {
-                    "type": "string",
-                    "maxLength": 100
-                }
-            }
-        },
         "model.RemovePermissionsRequest": {
             "type": "object",
             "required": [
@@ -2949,7 +2963,42 @@ const docTemplate = `{
                 }
             }
         },
-        "model.UpdateUserRequest": {
+        "request.RegisterUserRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 8
+                },
+                "phone": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "username": {
+                    "type": "string",
+                    "maxLength": 100
+                }
+            }
+        },
+        "request.UpdateUserRequest": {
             "type": "object",
             "properties": {
                 "avatar": {

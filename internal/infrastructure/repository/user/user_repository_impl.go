@@ -45,3 +45,21 @@ func (r *UserRepositoryImpl) CountByUsername(db *gorm.DB, username, excludeID st
 	}
 	return count, query.Count(&count).Error
 }
+
+func (r *UserRepositoryImpl) FindByRoleID(db *gorm.DB, roleID string) ([]*entity.User, error) {
+	var users []*entity.User
+
+	err := db.Joins("JOIN user_roles ON users.id = user_roles.user_id").
+		Where("user_roles.role_id = ?", roleID).
+		Find(&users).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(users) == 0 {
+		return nil, gorm.ErrRecordNotFound
+	}
+
+	return users, nil
+}

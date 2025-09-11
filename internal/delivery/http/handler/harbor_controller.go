@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"mkp-boarding-test/internal/delivery/http/middleware"
 	"mkp-boarding-test/internal/domain/usecase"
 	"mkp-boarding-test/internal/model"
 	"mkp-boarding-test/pkg/utils"
@@ -85,7 +86,9 @@ func (c *HarborController) List(ctx *fiber.Ctx) error {
 		Size:     ctx.QueryInt("size", 10),
 	}
 
-	responses, err := c.UseCase.List(ctx.UserContext(), request)
+	auth := middleware.GetUser(ctx)
+
+	responses, err := c.UseCase.List(ctx.UserContext(), request, auth.ID)
 	if err != nil {
 		c.Log.WithError(err).Error("failed to list harbors")
 		return utils.SendErrorResponse(ctx, fiber.StatusInternalServerError, "Failed to retrieve harbors", err.Error())

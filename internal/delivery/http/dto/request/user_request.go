@@ -83,3 +83,7 @@ type RemoveRolesRequest struct {
 	UserID  string   `json:"-" validate:"required,max=100,uuid"`
 	RoleIDs []string `json:"role_ids" validate:"required,dive,uuid"`
 }
+
+type GetUsersByRoleIdRequest struct {
+	RoleID string `json:"-" validate:"required,max=100,uuid"`
+}

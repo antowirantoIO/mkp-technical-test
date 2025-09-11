@@ -14,6 +14,7 @@ type UserResponse struct {
 	EmailVerifiedAt   *int64  `json:"email_verified_at"`
 	PasswordChangedAt *int64  `json:"password_changed_at"`
 	Token             string  `json:"token,omitempty"`
+	RefreshToken      string  `json:"refresh_token,omitempty"`
 	CreatedAt         int64   `json:"created_at"`
 	UpdatedAt         int64   `json:"updated_at"`
 }

@@ -23,3 +23,11 @@ func UserToResponse(user *entity.User) *response.UserResponse {
 		UpdatedAt:         user.UpdatedAt,
 	}
 }
+
+func UserToResponseList(users []*entity.User) []*response.UserResponse {
+	var responseUsers []*response.UserResponse
+	for _, user := range users {
+		responseUsers = append(responseUsers, UserToResponse(user))
+	}
+	return responseUsers
+}

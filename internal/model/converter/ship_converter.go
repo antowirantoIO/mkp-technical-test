@@ -40,5 +40,9 @@ func ShipToResponse(ship *entity.Ship) *model.ShipResponse {
 		Notes:                 ship.Notes,
 		CreatedAt:             ship.CreatedAt,
 		UpdatedAt:             ship.UpdatedAt,
+
+		Operator: model.OperatorResponse{
+			ID: ship.Operator.ID,
+		},
 	}
 }

@@ -176,6 +176,7 @@ func (c *UserUseCaseImpl) Login(ctx context.Context, request *request.LoginUserR
 
 	response := converter.UserToResponse(user)
 	response.Token = token
+	response.RefreshToken = refreshToken
 
 	return response, nil
 }
@@ -284,4 +285,27 @@ func (c *UserUseCaseImpl) Update(ctx context.Context, request *request.UpdateUse
 	}
 
 	return converter.UserToResponse(user), nil
+}
+
+func (c *UserUseCaseImpl) FindByRoleID(ctx context.Context, roleID string) ([]*response.UserResponse, error) {
+	tx := c.DB.WithContext(ctx).Begin()
+	defer tx.Rollback()
+
+	if roleID == "" {
+		c.Log.Error("roleID is required")
+		return nil, fiber.ErrBadRequest
+	}
+
+	users, err := c.UserRepository.FindByRoleID(tx, roleID)
+	if err != nil {
+		c.Log.WithError(err).Error("failed to find users by role id")
+		return nil, fiber.ErrInternalServerError
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		c.Log.WithError(err).Error("failed to commit transaction")
+		return nil, fiber.ErrInternalServerError
+	}
+
+	return converter.UserToResponseList(users), nil
 }

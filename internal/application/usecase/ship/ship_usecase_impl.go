@@ -336,7 +336,7 @@ func (c *ShipUseCaseImpl) List(ctx context.Context, request *model.ListShipReque
 	query = query.Offset(offset).Limit(request.Size)
 
 	var ships []entity.Ship
-	if err := query.Find(&ships).Error; err != nil {
+	if err := query.Preload("Operator").Find(&ships).Error; err != nil {
 		c.Log.WithError(err).Error("failed to find ships")
 		return nil, fiber.ErrInternalServerError
 	}

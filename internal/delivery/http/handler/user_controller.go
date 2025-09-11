@@ -164,3 +164,31 @@ func (c *UserController) Update(ctx *fiber.Ctx) error {
 
 	return utils.SendSuccessResponse(ctx, "User updated successfully", response)
 }
+
+// FindByRoleID godoc
+// @Summary Get users by role ID
+// @Description Get list of users by role ID
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param roleId path string true "Role ID"
+// @Success 200 {object} model.SwaggerWebResponse "Users retrieved successfully"
+// @Failure 400 {object} model.SwaggerWebResponse "Bad request"
+// @Failure 500 {object} model.SwaggerWebResponse "Internal server error"
+// @Router /api/users/roles/{roleId} [get]
+func (c *UserController) FindByRoleID(ctx *fiber.Ctx) error {
+	roleID := ctx.Params("roleId")
+	if roleID == "" {
+		c.Log.Warn("Role ID parameter is missing")
+		return utils.SendErrorResponse(ctx, fiber.StatusBadRequest, "Role ID is required", "missing roleId parameter")
+	}
+
+	response, err := c.UseCase.FindByRoleID(ctx.UserContext(), roleID)
+	if err != nil {
+		c.Log.WithError(err).Warnf("Failed to find users by role id")
+		return utils.SendErrorResponse(ctx, fiber.StatusInternalServerError, "Failed to find users by role id", err.Error())
+	}
+
+	return utils.SendSuccessResponse(ctx, "Users retrieved successfully", response)
+}

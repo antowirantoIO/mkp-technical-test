@@ -2,6 +2,7 @@ package repository
 
 import (
 	"mkp-boarding-test/internal/domain/entity"
+
 	"gorm.io/gorm"
 )
 

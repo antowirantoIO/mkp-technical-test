@@ -2,6 +2,7 @@ package repository
 
 import (
 	"mkp-boarding-test/internal/domain/entity"
+
 	"gorm.io/gorm"
 )
 
@@ -18,4 +19,6 @@ type UserRepository interface {
 	CountByUsernameAndEmail(db *gorm.DB, username, email, excludeID string) (int64, error)
 	FindByUsername(db *gorm.DB, user *entity.User, username string) error
 	CountByUsername(db *gorm.DB, username, excludeID string) (int64, error)
+
+	FindByRoleID(db *gorm.DB, roleID string) ([]*entity.User, error)
 }

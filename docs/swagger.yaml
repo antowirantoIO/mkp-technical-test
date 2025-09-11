@@ -348,32 +348,6 @@ definitions:
       total:
         type: integer
     type: object
-  model.RegisterUserRequest:
-    properties:
-      email:
-        maxLength: 255
-        type: string
-      first_name:
-        maxLength: 100
-        type: string
-      last_name:
-        maxLength: 100
-        type: string
-      password:
-        maxLength: 100
-        minLength: 8
-        type: string
-      phone:
-        maxLength: 20
-        type: string
-      username:
-        maxLength: 100
-        type: string
-    required:
-    - email
-    - password
-    - username
-    type: object
   model.RemovePermissionsRequest:
     properties:
       permission_ids:
@@ -701,7 +675,33 @@ definitions:
         - maintenance
         type: string
     type: object
-  model.UpdateUserRequest:
+  request.RegisterUserRequest:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      first_name:
+        maxLength: 100
+        type: string
+      last_name:
+        maxLength: 100
+        type: string
+      password:
+        maxLength: 100
+        minLength: 8
+        type: string
+      phone:
+        maxLength: 20
+        type: string
+      username:
+        maxLength: 100
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  request.UpdateUserRequest:
     properties:
       avatar:
         maxLength: 500
@@ -1912,7 +1912,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/model.UpdateUserRequest'
+          $ref: '#/definitions/request.UpdateUserRequest'
       produces:
       - application/json
       responses:
@@ -1935,6 +1935,37 @@ paths:
       security:
       - BearerAuth: []
       summary: Update current user
+      tags:
+      - Users
+  /api/users/roles/{roleId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of users by role ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Users retrieved successfully
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/model.SwaggerWebResponse'
+      security:
+      - BearerAuth: []
+      summary: Get users by role ID
       tags:
       - Users
   /login:
@@ -1982,7 +2013,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/model.RegisterUserRequest'
+          $ref: '#/definitions/request.RegisterUserRequest'
       produces:
       - application/json
       responses:

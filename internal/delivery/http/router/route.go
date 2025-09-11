@@ -46,6 +46,7 @@ func (c *RouteConfig) SetupAuthRoute() {
 	api.Delete("/users", c.UserController.Logout)
 	api.Patch("/users/_current", c.UserController.Update)
 	api.Get("/users/_current", c.UserController.Current)
+	api.Get("/users/roles/:roleId", c.UserController.FindByRoleID)
 
 	// Role routes
 	api.Get("/roles", c.RoleController.List)
